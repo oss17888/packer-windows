@@ -5,7 +5,7 @@
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "headless": false,
+      "headless": true,
       "boot_wait": "2m",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -36,7 +36,7 @@
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "headless": false,
+      "headless": true,
       "boot_wait": "2m",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -53,18 +53,13 @@
         "./scripts/oracle-cert.cer"
       ],
       "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "2048"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "2"
-        ]
+        [ "modifyvm", "{{.Name}}", "--memory","2048" ],
+        [ "modifyvm", "{{.Name}}", "--chipset", "ich9" ],
+        [ "modifyvm", "{{.Name}}", "--clipboard", "bidirectional" ],
+        [ "modifyvm", "{{.Name}}", "--vram", "256" ],  
+        [ "modifyvm", "{{.Name}}", "--audiocontroller", "hda" ],         
+        [ "modifyvm", "{{.Name}}", "--audio", "alsa" ],  
+        [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
       ]
     }
   ],
@@ -80,6 +75,14 @@
         "./scripts/enable-rdp.bat",
         "./scripts/compile-dotnet-assemblies.bat",
         "./scripts/compact.bat"
+      ]
+    },
+    {
+      "type": "powershell",
+      "scripts": [
+        "./scripts/provision.ps1",
+        "./scripts/chocolatey.ps1",
+        "./scripts/ConfigureRemotingForAnsible.ps1"
       ]
     }
   ],
