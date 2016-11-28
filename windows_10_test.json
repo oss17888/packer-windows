@@ -85,7 +85,7 @@
       "type": "powershell",
       "scripts": [
         "./scripts/provision.ps1",
-        "./scripts/chocolatey.ps1"
+        "./scripts/chocotest.ps1"
       ]
     },
     {
